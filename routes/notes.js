@@ -3,7 +3,7 @@ const notes = require('express').Router();
 const fs = require('fs'); // this is like a must for express
 const path = require('path');  // to local path
 const db = path.join(__dirname, '../db/db.json');   // to the db.json database
-const { id, addNote, findAndRemoveNote } = require('../fscode/fscode.js'); //no code in fscode, but a add and find/remove function is gonna be written there
+const { id, addNote, findAndRemoveNote } = require('../fscode/fscode'); //no code in fscode, but a add and find/remove function is gonna be written there
 
 
 // get route
