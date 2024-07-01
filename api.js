@@ -1,6 +1,6 @@
 // listing the dependencies constants
 const express = require('express');
-const api = require('./routes/index.js');  // router
+const api = require('./routejs/indexroute.js');  // router
 const path = require('path');  // local path
 
 const PORT = process.env.PORT || 3001; // port
