@@ -38,6 +38,8 @@ THEN I am presented with empty fields to enter a new note title and the note’s
 
 ## Screenshot
 
+<img width="1268" alt="image" src="https://github.com/Alctoria/CU-Note-Taker/assets/100668552/3f752873-f0e8-4332-bae5-2c9a5c96ee92">
+
 ## Deployment Link:
 
 https://cu-note-taker.onrender.com/
