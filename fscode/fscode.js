@@ -1,54 +1,31 @@
-/* DEPENDENCIES */
-const fs = require('fs');
+// listing the dependencies constants
+const express = require('express');
+const api = require('./routes/index.js');  // router
+const path = require('path');  // local path
 
-/* FUNCTIONS */
-/* Generate random ID */
-function id() {
-    let result = ""
-    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-    const charsLength = chars.length;
-    for (let i = 0; i < 4; i++) {
-      result += chars.charAt(Math.floor(Math.random() * charsLength));
-    }
-    return result;
-}
+const app = express(); //express app const
 
-/* Add new note to existing notes */
-function addNote(db, newNote, res) {
-    fs.readFile(db, (err, data) => {
-        if (err) console.error(`Error: ${db} could not be read from.`)
-        else {
-            let notes = JSON.parse(data);
-            notes.push(newNote)
-            fs.writeFile(db, JSON.stringify(notes, null, 4), (err) => {
-                if (err) console.error(`Error: ${db} could not be written to.`)
-                else res.json(notes)
-            }); 
-        }        
-    })
-    return [];
-}
+const PORT = process.env.PORT || 3001; // port
 
-function findAndRemoveNote(db, id, res) {
-    fs.readFile(db, (err, data) => {
-        if (err) console.error(`Error: ${db} could not be read from.`)
-        else {
-            let notes = JSON.parse(data) || [];
-            for (note in notes) {
-                if (notes[note].id === id) {
-                    console.log(`Removing note with ID: ${id}.`)
-                    notes.splice(note, 1);
+// middleware functions
 
-                    fs.writeFile(db, JSON.stringify(notes, null, 4), (err) => {
-                        if (err) console.error(`Error: ${db} could not be written to.`)
-                        return res.json(notes);
-                    }); 
-                }
-            }
-        }        
-    })
-    return [];
-}
+app.use(express.json());  // Parse JSON 
+app.use(express.urlencoded({ extended: true }));  // Parse urlencoded form
+app.use(express.static('public')); 
 
-/* EXPORTS */
-module.exports = { id, addNote, findAndRemoveNote };
+app.use('/api', api);  // Send all "/api" starting strings to index.js as requests        
+
+app.get('/', (req, res) =>  // sending file to home page
+  res.sendFile(path.join(__dirname, '/public/index.html'))
+);
+
+app.get('/notes', (req, res) =>  // same code, but to notes page as well
+  res.sendFile(path.join(__dirname, '/public/notes.html'))
+);
+
+
+// code that functions as a port listener
+
+app.listen(PORT, () =>
+  console.log(`App listening at http://localhost:${PORT}`)
+);
