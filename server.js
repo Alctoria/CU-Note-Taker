@@ -1,5 +1,5 @@
 const express = require('express');
-const api = require('./routes/index.js');  // Import router
+const api = require('routes/index.js');  // Import router
 const path = require('path');  // Get local path
 
 const app = express();
